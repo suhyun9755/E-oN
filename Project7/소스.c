@@ -1,60 +1,43 @@
-/*
-크기가 10인 배열을 설정하고, Push, Pop, Show(스택에 있는 데이터들을 출력)연산을 수행하는 프로그램을 만드시오.
-*/
+/*두 사각형 좌표가 주어질 때 두 사각형이 오버랩(overlap) 되는지 아닌지를 판단하는 프로그램을 작성하시오. 
+변을 공유하거나 꼭지점을 공유하는 경우에도 overlap 되는 것으로 간주한다.*/
 
 #define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
-int stack[10];
-void function(int num)
-{
-	static int k = 0;
-	int i = 0;
-
-	if (num == 1)
-	{
-		printf("숫자를 입력하시오 : ");
-		scanf("%d", &stack[k]);
-		k += 1;
-	}
-
-	else if (num == 2)
-	{
-		stack[--k] = 0;
-	}
-
-	else if (num == 3)
-	{
-		for (i = 1; i <= k; i++)
-		{
-			printf("%d", stack[i - 1]);
-		}
-		printf("\n");
-	}
-}
+#include<stdio.h>
 
 int main(void)
 {
-	int num;
+	int x1, y1, x2, y2;
+	int x3, y3, x4, y4;
 
-	printf("===============종류============\n");
+	printf("1좌표를 입력 하시오 : ");
+	scanf("%d %d %d %d", &x1, &y1, &x2, &y2);
+	printf("2좌표를 입력 하시오 : ");
+	scanf("%d %d %d %d", &x3, &y3, &x4, &y4);
 
-	printf("PUSH : 1\n");
-	printf("POP  : 2\n");
-	printf("SHOW : 3\n");
-	printf("종료하려면 1,2,3 이외의 다른 숫자를 입력하시오.\n\n\n");
-	while (1) {
-
-		printf("메뉴를 선택하세요 : ");
-		scanf("%d", &num);
-
-		if (num == 1 || num == 2 || num == 3)
+	if ((x1 <= x3 && x3 <= x2) || (x1 <= x4 && x4 <= x2) || (x3 <= x2 && x2 <= x4) || (x3 <= x1 && x1 <= x4))
+	{
+		if ((y1 <= y3 && y3 <= y2) || (y1 <= y4 && y4 <= y2) || (y3 <= y2 && y2 <= y4) || (y3 <= y1 && y1 <= y4))
 		{
-			function(num);
-
+			printf("Overlap");
 		}
-		else {
-			printf("==========프로그램 종료==========\n");
-			break;
+		else 
+		{
+			printf("No overlap");
 		}
 	}
+	else if ((y1 <= y3 && y3 <= y2) || (y1 <= y4 && y4 <= y2) || (y3 <= y1 && y1 <= y4) || (y3 <= y2 && y2 <= y4))
+	{
+		if ((x1 <= x3 && x3 <= x2) || (x1 <= x4 && x4 <= x2) || (x3 <= x1 && x1 <= x4) || (x3 <= x2 && x2 <= x4))
+		{
+			printf("Overlap\n");
+		}
+		else
+		{
+			printf("No overlap\n");
+		}
+	}
+	else
+		printf("No overlap");
+
+	return 0;
 }
